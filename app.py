@@ -1,14 +1,12 @@
-import os
 import streamlit as st
 import openai
-from dotenv import load_dotenv
 
-# 환경 변수 로드
-load_dotenv()
-api_key = os.getenv("OPENAI_API_KEY")
+# 스트리밋 시크릿에서 API 키 읽기
+api_key = st.secrets["api"]["OPENAI_API_KEY"]
+
 if not api_key:
-    st.error("OPENAI_API_KEY 환경 변수가 설정되지 않았습니다. 프로젝트 폴더에 .env 파일을 확인하거나, 환경 변수를 수동으로 설정하세요.")
-    st.write("예: .env 파일에 `OPENAI_API_KEY=sk-proj-...` 형식으로 추가")
+    st.error("OPENAI_API_KEY 환경 변수가 설정되지 않았습니다.")
+    st.write("참고: Streamlit 대시보드에서 Secrets를 설정해야 합니다.")
     st.stop()
 
 openai.api_key = api_key
